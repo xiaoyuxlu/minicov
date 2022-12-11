@@ -9,6 +9,12 @@ fn main() {
     cfg.flag("-fno-profile-instr-generate");
     cfg.flag("-fno-coverage-mapping");
     cfg.define("COMPILER_RT_HAS_ATOMICS", "1");
+    let os = std::env::var("CARGO_CFG_TARGET_OS").unwrap();
+    if os == "uefi" {
+        cfg.flag("-UWIN32");
+        cfg.flag("-U_WIN32");
+        cfg.flag("-U_WIN64");
+    }
 
     let sources = [
         "c/InstrProfiling.c",

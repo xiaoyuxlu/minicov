@@ -314,3 +314,7 @@ pub fn reset_coverage() {
         __llvm_profile_reset_counters();
     }
 }
+
+#[cfg(any(target_os = "uefi", target_os = "none"))]
+#[no_mangle]
+static __llvm_profile_runtime: u32 = 0;
